@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 public class IsSelectedEx {
@@ -92,13 +93,64 @@ public class IsSelectedEx {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://demoqa.com/alerts");
+		
+		//***********SIMPLE ALERT*********
+		
 		/*WebElement simpleAlertfirstbutton = driver.findElement(By.xpath("//button[@id='alertButton']"));
 		simpleAlertfirstbutton.click();
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 		driver.close();*/
 		
+		//***********CONFIRMATION ALERT*********
 		
+		/*WebElement confirmationalert = driver.findElement(By.xpath("//button[@id='confirmButton']"));
+		confirmationalert.click();
+		Alert alert = driver.switchTo().alert();
+		alert.dismiss();
+		WebElement value = driver.findElement(By.xpath("//span[@id='confirmResult']"));	
+		System.out.println(value.getText());*/
+		
+
+		//***********PROMPT ALERT*********
+		
+		
+		WebElement promptalert = driver.findElement(By.xpath("//button[@id='promtButton']"));
+		promptalert.click();
+		Alert alert = driver.switchTo().alert();
+		alert.sendKeys("Drishya");
+		alert.accept();
+		WebElement textentered = driver.findElement(By.xpath("//span[@id='promptResult']"));
+		System.out.println(textentered.getText());
+		driver.close();
+		
+		
+	}
+	
+	public void verifyMouseActionsRightClick()
+	{
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+		WebElement rightclick = driver.findElement(By.xpath("//span[@class='context-menu-one btn btn-neutral']"));
+		Actions actions = new Actions(driver);
+		actions.contextClick(rightclick).build().perform();
+		driver.close();
+		
+	}
+	
+	public void verifyDoubleClick()
+	{
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+		WebElement doubleclick = driver.findElement(By.xpath("//button[text()='Double-Click Me To See Alert']"));
+		Actions actions = new Actions(driver);
+		actions.doubleClick(doubleclick).build().perform();
+		Alert alert = driver.switchTo().alert();
+		System.out.println(alert.getText());
+		alert.accept();
+		driver.close();
 	}
 
 	public static void main(String[] args) {
@@ -108,7 +160,9 @@ public class IsSelectedEx {
 		//obj.verifyIsDisplayed();
 		//obj.verifyDropDown();
 		//obj.verifyFullDropDownValues();
-		obj.verifyAlerts();
+		//obj.verifyAlerts();
+		//obj.verifyMouseActions();
+		obj.verifyDoubleClick();
 		
 		
 
